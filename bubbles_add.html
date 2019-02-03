@@ -31,10 +31,12 @@ function setup() {
 function draw() {
     background(255);
 
+    var mouseIsOutsideOfAllBubbles = 1
     for (var i = 0; i < bubbles.length; i++) {
         var bubble = bubbles[i];
 
         if (dist(mouseX, mouseY, bubble.x, bubble.y) <  bubble.radius) {
+             mouseIsOutsideOfAllBubbles = 0
             if (mouseIsPressed) {
                 bubbles.splice(i, 1); // remove this bubble!
             }
@@ -49,14 +51,7 @@ function draw() {
         bubble.y += random(-1, 1);
     }
 
-    var mouseInSomeBubble = 0
-    for (var i = 0; i < bubbles.length; i++) {        
-        if (dist(mouseX, mouseY, bubbles[i].x, bubbles[i].y) <  bubbles[i].radius) {
-             mouseInSomeBubble = 1
-        }
-    }
-
-    if (mouseInSomeBubble == 1 && mouseIsPressed) {
+    if (mouseIsOutsideOfAllBubbles && mouseIsPressed) {
         var bubble = {
             x: random(width),
             y: random(height),
